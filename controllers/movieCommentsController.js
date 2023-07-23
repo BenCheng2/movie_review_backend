@@ -1,8 +1,7 @@
 const MovieComment = require('../models/MovieComment');
 const User = require('../models/User');
-const asyncHandler = require('express-async-handler');
 
-const getAllMovieComments = asyncHandler(async (req, res) => {
+const getAllMovieComments = async (req, res) => {
     const movieComments = await MovieComment.find().lean();
 
     if (!movieComments?.length) {
@@ -15,9 +14,9 @@ const getAllMovieComments = asyncHandler(async (req, res) => {
     }));
 
     res.json(movieCommentsWithUser);
-});
+};
 
-const createNewMovieComment = asyncHandler(async (req, res) => {
+const createNewMovieComment = async (req, res) => {
     const {user, title, text, movieId, completed} = req.body;
 
     if (!user || !title || !text || !movieId) {
@@ -37,9 +36,9 @@ const createNewMovieComment = asyncHandler(async (req, res) => {
     } else {
         return res.status(400).json({message: 'Invalid movie comment data received'});
     }
-});
+};
 
-const updateMovieComment = asyncHandler(async (req, res) => {
+const updateMovieComment = async (req, res) => {
     const {id, user, title, text, movieId, completed} = req.body;
 
     if (!id || !user || !title || !text || !movieId) {
@@ -51,7 +50,6 @@ const updateMovieComment = asyncHandler(async (req, res) => {
     if (!movieComment) {
         return res.status(400).json({message: 'Move comment not found'});
     }
-    console.log(movieComment)
 
     const duplicate = await MovieComment.findOne({title}).lean().exec();
 
@@ -70,9 +68,9 @@ const updateMovieComment = asyncHandler(async (req, res) => {
     const updatedMovieComment = await movieComment.save();
 
     res.json(`${updatedMovieComment.title} updated`);
-});
+};
 
-const deleteMovieComment = asyncHandler(async (req, res) => {
+const deleteMovieComment = async (req, res) => {
     const {id} = req.body;
 
     if (!id) {
@@ -90,7 +88,7 @@ const deleteMovieComment = asyncHandler(async (req, res) => {
     const reply = `MovieComment ${result.title} with ID ${result._id} deleted`;
 
     res.json(reply);
-});
+};
 
 module.exports = {
     getAllMovieComments,
