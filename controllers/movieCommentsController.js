@@ -17,7 +17,7 @@ const getAllMovieComments = async (req, res) => {
 };
 
 const createNewMovieComment = async (req, res) => {
-    const {user, title, text, movieId, completed} = req.body;
+    const {user, title, text, movieId} = req.body;
 
     if (!user || !title || !text || !movieId) {
         return res.status(400).json({message: 'All fields are required'});
