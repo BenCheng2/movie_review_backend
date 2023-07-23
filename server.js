@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+require('express-async-errors');
 // Importing modules
 const express = require('express');
 const path = require('path');
