@@ -1,5 +1,5 @@
 {
-  "name": "technote_front",
+  "name": "movie_review_backend",
   "version": "1.0.0",
   "description": "Technology notes frontend part",
   "main": "server.js",
